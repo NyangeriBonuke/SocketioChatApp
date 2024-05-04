@@ -2,6 +2,7 @@ const express = require('express')
 const { createServer } = require('http')
 const { Server } = require('socket.io')
 const cors = require('cors')
+const router = require('./routes/route')
 require('dotenv').config()
 
 const app = express()
@@ -23,6 +24,10 @@ io.on('connection', (socket) => {
         io.emit('message', { user: socket.id, message: data })
     })
 })
+
+app.use('/api', router)
+
+require('./db')
 
 server.listen(process.env.PORT, () => {
     console.log(`Server running on http://localhost:${process.env.PORT}`)

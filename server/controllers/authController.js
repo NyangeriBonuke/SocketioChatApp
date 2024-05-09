@@ -37,6 +37,16 @@ class AuthController{
             res.status(500).json(`Login controller error: ${error}`)
         }
     }
+
+    async getUsers(req, res){
+        try{
+            const users = await AuthUseCase.allUsers()
+            res.status(200).json(users)
+        }
+        catch(error){
+            res.status(500).json(`Get all users controller error ${error}`)
+        }
+    }
 }
 
 module.exports = new AuthController

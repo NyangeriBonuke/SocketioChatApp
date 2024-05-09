@@ -29,6 +29,16 @@ class AuthUseCase{
             throw new Error(`Usecase login user error: ${error}`)
         }
     }
+
+    async allUsers(){
+        try{
+            const allUsers = await User.find()
+            return allUsers
+        }
+        catch(error){
+            throw new Error(`Usecase get all users error ${error}`)
+        }
+    }
 }
 
 module.exports = new AuthUseCase

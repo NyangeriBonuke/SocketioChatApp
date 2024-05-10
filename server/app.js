@@ -20,8 +20,13 @@ app.use(express.json())
 io.on('connection', (socket) => {
     console.log('A user connected')
 
+    socket.on('joinRoom', (userId) => {
+        socket.join(userId)
+        console.log(`User ${userId} joined the room`)
+    })
+
     socket.on('message', (data) => {
-        io.emit('message', { user: socket.id, message: data })
+        io.to(data.receiverId).emit('message', { user: data.senderId, message: data.message })
     })
 })
 
